@@ -30,39 +30,31 @@ namespace T9Spelling
 
         public static string Replacer(string line)
         {
-            string[] c = new string[line.Length];
-
-            for (int i = 0; i < line.Length; i++)
-                switch ((int)line[i])
+            string[] c = line.Select(x =>
+            {
+                switch ((int)x)
                 {
                     case 32:
-                        c[i] = "0";
-                        break;
+                       return "0";
                     case 97: case 98: case 99:
-                        c[i] = new string('2', line[i] - 97 + 1);
-                        break;
+                       return new string('2', x - 97 + 1);
                     case 100: case 101: case 102:
-                        c[i] = new string('3', line[i] - 100 + 1);
-                        break;
+                       return new string('3', x - 100 + 1);
                     case 103: case 104: case 105:
-                        c[i] = new string('4', line[i] - 103 + 1);
-                        break;
+                       return new string('4', x - 103 + 1);
                     case 106: case 107: case 108:
-                        c[i] = new string('5', line[i] - 106 + 1);
-                        break;
+                       return new string('5', x - 106 + 1);
                     case 109: case 110: case 111:
-                        c[i] = new string('6', line[i] - 109 + 1);
-                        break;
+                       return new string('6', x - 109 + 1);
                     case 112: case 113: case 114: case 115:
-                        c[i] = new string('7', line[i] - 112 + 1);
-                        break;
+                       return new string('7', x - 112 + 1);
                     case 116: case 117: case 118:
-                        c[i] = new string('8', line[i] - 116 + 1);
-                        break;
+                       return new string('8', x - 116 + 1);
                     case 119: case 120: case 121: case 122:
-                        c[i] = new string('9', line[i] - 119 + 1);
-                        break;
+                       return new string('9', x - 119 + 1);
+                    default: throw new IOException();
                 }
+            }).ToArray();
 
             var sb = new StringBuilder();
 
