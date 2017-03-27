@@ -1,30 +1,37 @@
-﻿using System.Linq;
-using System.Text;
+using System;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace T9Spelling
 {
     public class Program
     {
 
-        // Можно было бы не создавать массив символов и закодировать за один проход цикла, но такое решение показалось мне более элегантным.
+        // My solution of https://code.google.com/codejam/contest/351101/dashboard#s=p2
 
         static void Main(string[] args)
         {
             var inputPath = @"..\C-large-practice.in";
             var outputPath = @"..\C-large-practice.out";
 
-            using (var sr = new StreamReader(inputPath))
-            using (var sw = new StreamWriter(outputPath, false))
+            try
             {
-                var n = int.Parse(sr.ReadLine());
-
-                for (int i = 0; i < n; i++)
+                using (var sr = new StreamReader(inputPath))
+                using (var sw = new StreamWriter(outputPath, false))
                 {
-                    var line = sr.ReadLine();
-                    var newLine = Replacer(line);
-                    sw.WriteLine($"Case #{i + 1}: {newLine}");
+                    var n = int.Parse(sr.ReadLine());
+
+                    for (int i = 0; i < n; i++)
+                    {
+                        var line = sr.ReadLine();
+                        var newLine = Replacer(line);
+                        sw.WriteLine($"Case #{i + 1}: {newLine}");
+                    }
                 }
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -52,7 +59,7 @@ namespace T9Spelling
                        return new string('8', x - 116 + 1);
                     case 119: case 120: case 121: case 122:
                        return new string('9', x - 119 + 1);
-                    default: throw new IOException();
+                    default: throw new Exception($"Incorrect input : {x}");
                 }
             }).ToArray();
 
